@@ -1,6 +1,6 @@
 <div class="navbar navbar-expand-md navbar-dark">
     <div class="navbar-brand">
-        <a href="{{route('admin.home')}}" class="d-inline-block">
+        <a href="{{route('graduate.admin.home')}}" class="d-inline-block">
             <img src="{{asset('assets/global/images/logo_app.png')}}" alt="">
         </a>
     </div>
@@ -30,8 +30,8 @@
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a href="{{route('admin.setting')}}" class="dropdown-item"><i class="icon-cog5"></i> Pengaturan</a>
-                    <a href="{{route('admin.logout')}}" class="dropdown-item"><i class="icon-switch2"></i> Keluar</a>
+                    <a href="{{route('graduate.admin.setting')}}" class="dropdown-item"><i class="icon-cog5"></i> Pengaturan</a>
+                    <a href="{{route('graduate.admin.logout')}}" class="dropdown-item"><i class="icon-switch2"></i> Keluar</a>
                 </div>
             </li>
         </ul>

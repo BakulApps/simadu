@@ -2,7 +2,7 @@
 
 namespace App\Imports\Graduate;
 
-use App\Models\Graduate\Master\Subject;
+use App\Models\Master\Subject;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 

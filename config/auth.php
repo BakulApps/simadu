@@ -46,6 +46,11 @@ return [
             'provider' => 'graduateusers'
         ],
 
+        'admission' => [
+            'driver' => 'session',
+            'provider' => 'admissionusers'
+        ],
+
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -79,6 +84,11 @@ return [
         'graduateusers' => [
             'driver' => 'eloquent',
             'model' => App\Models\Graduate\User::class
+        ],
+
+        'admissionusers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admission\User::class
         ],
 
         // 'users' => [

@@ -24,7 +24,8 @@ var notifyjs = function () {
                 {className: 'text-center', targets: 3},
                 {className: 'text-center', targets: 4},
                 {className: 'text-center', targets: 5},
-                {className: 'text-center', targets: 6}
+                {className: 'text-center', targets: 6},
+                {className: 'text-center', targets: 7}
             ],
             ajax: ({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},

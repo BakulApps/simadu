@@ -16,6 +16,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected $namespace = 'App\Http\Controllers';
     protected $namespace_graduate = 'App\Http\Controllers\Graduate';
+    protected $namespace_admission = 'App\Http\Controllers\Admission';
 
     /**
      * The path to the "home" route for your application.
@@ -49,6 +50,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapGraduateRoutes();
 
+        $this->mapAdmissionRoutes();
+
         //
     }
 
@@ -71,6 +74,13 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
             ->namespace($this->namespace_graduate)
             ->group(base_path('routes/graduate.php'));
+    }
+
+    protected function mapAdmissionRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace_admission)
+            ->group(base_path('routes/admission.php'));
     }
 
     /**

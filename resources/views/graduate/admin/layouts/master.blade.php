@@ -3,7 +3,7 @@
     @include('graduate.admin.layouts.head')
     <body>
     <script>
-        var baseurl = '{{route('admin.home')}}'
+        var baseurl = '{{route('graduate.admin.home')}}'
     </script>
         @include('graduate.admin.layouts.navbar')
         <div class="page-content">

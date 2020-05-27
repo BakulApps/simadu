@@ -27,7 +27,7 @@ class AuthController extends Controller
     {
         $credentials = ['user_name' => $request->user_name, 'password' => $request->user_pass];
         if (Auth::guard('graduate')->attempt($credentials, $request->remember)){
-            return redirect()->route('admin.home');
+            return redirect()->route('graduate.admin.home');
         }
         else {
             return redirect()->back()->withInput()->with('msg', 'Nama Pengguna dan Kata Sandi tidak tepat');
@@ -37,6 +37,6 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::guard('graduate')->logout();
-        return redirect()->route('admin.login')->with('msg', 'Anda berhasil keluar.');
+        return redirect()->route('graduate.admin.login')->with('msg', 'Anda berhasil keluar.');
     }
 }

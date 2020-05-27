@@ -2,7 +2,7 @@
 
 namespace App\Imports\Graduate;
 
-use App\Models\Graduate\Master\Subject;
+use App\Models\Master\Subject;
 use App\Models\Graduate\ValueExam;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;

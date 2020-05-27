@@ -16,7 +16,7 @@ class MainController extends Controller
         if (Setting::value('setting_notify_date') <= Carbon::now()){
             if ($request->submit == 'search'){
                 $student = Student::where('student_nisn', $request->student_nisn)
-                    ->join('entity__notifies', 'entity__notifies.student_id', '=', 'entity__students.student_id');
+                    ->join('graduate_entity__notifies', 'graduate_entity__notifies.student_id', '=', 'graduate_entity__students.student_id');
                 if ($student->count() > 0){
                     $student = $student->first();
                     Notify::where('student_id', $student->student_id)->update([
@@ -42,20 +42,30 @@ class MainController extends Controller
 
     public function print(Request $request)
     {
-        $student = Student::where('student_nisn', $request->student_nisn)
-            ->join('entity__notifies', 'entity__notifies.student_id', '=', 'entity__students.student_id')->first();
-        Notify::where('student_id', $student->student_id)->update([
-            'notify_print' => $student->notify_print + 1
-        ]);
-        $value = json_decode($student->notify_value, true);
-        $data = ['student' => $student, 'value' => $value];
-        return \PDF::loadView('graduate.skl_template', $data)->download('SKL-'.$student->student_nisn.'.pdf');
+        if ($request->submit == 'skl'){
+            $student = Student::where('student_nisn', $request->student_nisn)
+                ->join('graduate_entity__notifies', 'graduate_entity__notifies.student_id', '=', 'graduate_entity__students.student_id')->first();
+            Notify::where('student_id', $student->student_id)->update([
+                'notify_print' => $student->notify_print + 1
+            ]);
+            $value_pg = json_decode($student->notify_value_pg, true);
+            $value_kt = json_decode($student->notify_value_kt, true);
+            $data = ['student' => $student, 'value_pg' => $value_pg, 'value_kt' => $value_kt];
+            return \PDF::loadView('graduate.skl_template', $data)->download('SKL-'.$student->student_nisn.'.pdf');
+        }
+        elseif ($request->submit == 'skl_un'){
+            $student = Student::where('student_nisn', $request->student_nisn)
+                ->join('graduate_entity__notifies', 'graduate_entity__notifies.student_id', '=', 'graduate_entity__students.student_id')
+                    ->first();
+            $data = ['student' => $student];
+            return \PDF::loadView('graduate.skl_un_template', $data)->download('SKL-UN-'.$student->student_nisn.'.pdf');
+        }
     }
 
     public function authentication($id)
     {
         $notify = Notify::where('notify_id', $id)
-            ->join('entity__students', 'entity__students.student_id', '=', 'entity__notifies.student_id');
+            ->join('graduate_entity__students', 'graduate_entity__students.student_id', '=', 'graduate_entity__notifies.student_id');
         if ($notify->count() > 0){
             $data = ['notify' => $notify->first()];
         }
@@ -63,7 +73,8 @@ class MainController extends Controller
             $notify = (object) [
                 'notify_id' => null,
                 'notify_number' => null,
-                'notify_value_total' => null,
+                'notify_value_pg_total' => null,
+                'notify_value_kt_total' => null,
                 'notify_view' => null,
                 'notify_print' => null,
                 'student_id' => null,
@@ -80,5 +91,13 @@ class MainController extends Controller
         }
         $data['gender'] = ['L' => 'Laki-laki', 'P' => 'Perempuan'];
         return view('graduate.authentication', $data);
+    }
+
+    public function test()
+    {
+        $student = Student::join('graduate_entity__notifies', 'graduate_entity__notifies.student_id', '=', 'graduate_entity__students.student_id')
+            ->first();
+        $data = ['student' => $student];
+        return view('graduate.skl_un_template', $data);
     }
 }

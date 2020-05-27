@@ -1,6 +1,6 @@
 @extends('graduate.layouts.master')
 @section('content')
-    <form class="login-form" action="{{route('home')}}" method="post">
+    <form class="login-form" action="{{route('graduate.home')}}" method="post">
         {{csrf_field()}}
         <div class="card mb-0">
             <div class="card-body">

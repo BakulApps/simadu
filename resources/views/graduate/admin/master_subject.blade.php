@@ -82,7 +82,7 @@
                             </div>
                         </div>
                     </div>
-                    <p>Silahkan unduh template Mata pelajaran <a href="{{route('admin.master.subject')}}/?_type=download&_data=subject" class="badge badge-info">disini</a></p>
+                    <p>Silahkan unduh template Mata pelajaran <a href="{{route('graduate.admin.master.subject')}}/?_type=download&_data=subject" class="badge badge-info">disini</a></p>
                 </div>
             </div>
         </div>

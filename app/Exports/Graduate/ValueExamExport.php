@@ -2,7 +2,7 @@
 
 namespace App\Exports\Graduate;
 
-use App\Models\Graduate\Master\Subject;
+use App\Models\Master\Subject;
 use App\Models\Graduate\Student;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithHeadings;

@@ -23,8 +23,9 @@
                     <thead>
                     <tr class="text-center">
                         <td>NAMA SISWA</td>
-                        @foreach(\App\Models\Graduate\Master\Subject::OrderBy('subject_number')->get() as $subject)
-                            <td>{{$subject->subject_code}}</td>
+                        @foreach(\App\Models\Master\Subject::OrderBy('subject_number')->get() as $subject)
+                            <td>{{$subject->subject_code}}_KD3</td>
+                            <td>{{$subject->subject_code}}_KD4</td>
                         @endforeach
                     </tr>
                     </thead>

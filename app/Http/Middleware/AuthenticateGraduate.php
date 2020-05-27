@@ -20,7 +20,7 @@ class AuthenticateGraduate
             return $next($request);
         }
         else {
-            return redirect()->route('admin.login');
+            return redirect()->route('graduate.admin.login');
         }
     }
 }

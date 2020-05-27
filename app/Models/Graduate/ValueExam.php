@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ValueExam extends Model
 {
-    protected $connection   = 'graduate';
-    protected $table        = 'entity__student_value_exams';
+    protected $table        = 'graduate_entity__value_exams';
     protected $fillable     = [
         'value_id',
         'value_point',

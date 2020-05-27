@@ -2,13 +2,12 @@
 
 namespace App\Models\Graduate;
 
+use App\Models\Master\Ladder;
 use Illuminate\Database\Eloquent\Model;
-use phpDocumentor\Reflection\Types\Self_;
 
 class Setting extends Model
 {
-    protected $connection   = 'graduate';
-    protected $table        = 'entity__settings';
+    protected $table        = 'graduate_entity__settings';
     protected $fillable     = [
         'setting_id',
         'setting_app_name',

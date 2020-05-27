@@ -26,7 +26,7 @@
                     <thead>
                     <tr class="text-center">
                         <td>NAMA SISWA</td>
-                        @foreach(\App\Models\Graduate\Master\Subject::OrderBy('subject_number')->get() as $subject)
+                        @foreach(\App\Models\Master\Subject::OrderBy('subject_number')->get() as $subject)
                             <td>{{$subject->subject_code}}</td>
                         @endforeach
                     </tr>
@@ -54,7 +54,7 @@
                             </div>
                         </div>
                     </div>
-                    <p>Silahkan unduh template Nilai Ujian <a href="{{route('admin.value.exam')}}/?_type=download&_data=value_exam" class="badge badge-info">disini</a></p>
+                    <p>Silahkan unduh template Nilai Ujian <a href="{{route('graduate.admin.value.exam')}}/?_type=download&_data=value_exam" class="badge badge-info">disini</a></p>
                 </div>
             </div>
         </div>

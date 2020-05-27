@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Graduate;
 
+use App\Exports\Graduate\ValueExamExport;
 use App\Exports\Graduate\ValueSemesterExport;
 use App\Http\Controllers\Controller;
 use App\Imports\Graduate\ValueExamImport;
 use App\Imports\Graduate\ValueSemesterImport;
-use App\Models\Graduate\Master\Subject;
+use App\Models\Master\Subject;
 use App\Models\Graduate\Setting;
 use App\Models\Graduate\Student;
 use App\Models\Graduate\ValueExam;
@@ -24,11 +25,16 @@ class ValueController extends Controller
                 foreach (Student::OrderBy('student_class')->OrderBy('student_name')->get()  as $student){
                     $value = [];
                     foreach (Subject::OrderBy('subject_number')->get() as $subject){
-                        $value[] = [ValueSemester::where('student_id', $student->student_id)
+                        $value[] = ValueSemester::where('student_id', $student->student_id)
                             ->where('subject_id', $subject->subject_id)
                             ->where('semester_id', $request->semester_id)
                             ->where('year_id', $request->year_id)
-                            ->value('value_point')];
+                            ->value('value_point_pg');
+                        $value[] = ValueSemester::where('student_id', $student->student_id)
+                            ->where('subject_id', $subject->subject_id)
+                            ->where('semester_id', $request->semester_id)
+                            ->where('year_id', $request->year_id)
+                            ->value('value_point_kt');
                     }
                     $data[] = array_merge([$student->student_name], $value);
                 }
@@ -104,7 +110,7 @@ class ValueController extends Controller
             return response()->json($msg);
         }
         elseif ($request->_type == 'download' && $request->_data == 'value_exam'){
-            return Excel::download(new ValueSemesterExport, 'nilai_ujian.xlsx');
+            return Excel::download(new ValueExamExport, 'nilai_ujian.xlsx');
         }
         else {
             return view('graduate.admin.value_exam');
@@ -117,14 +123,16 @@ class ValueController extends Controller
                 foreach (Student::OrderBy('student_class')->OrderBy('student_name')->get()  as $student){
                     $value = [];
                     foreach (Subject::OrderBy('subject_number')->get() as $subject){
-                        $value[] = [
+                        $value[] =
                             ((ValueSemester::where('student_id', $student->student_id)
                             ->where('subject_id', $subject->subject_id)
-                            ->average('value_point') * Setting::value('setting_value_semester_point')) +
+                            ->average('value_point_pg') * Setting::value('setting_value_semester_point')) +
                             (ValueExam::where('student_id', $student->student_id)
                                 ->where('subject_id', $subject->subject_id)
-                                ->value('value_point') * Setting::value('setting_value_exam_point'))) / 100
-                        ];
+                                ->value('value_point') * Setting::value('setting_value_exam_point'))) / 100;
+                        $value[] = (int) ValueSemester::where('student_id', $student->student_id)
+                            ->where('subject_id', $subject->subject_id)
+                            ->average('value_point_pg');
                     }
                     $data[] = array_merge([$student->student_name], $value);
                 }

@@ -9,8 +9,7 @@ class User extends Authenticated
 {
     use Notifiable;
 
-    protected $connection   = 'graduate';
-    protected $table        = 'entity__users';
+    protected $table        = 'graduate_entity__users';
     protected $fillable     = [
         'user_id',
         'user_name',

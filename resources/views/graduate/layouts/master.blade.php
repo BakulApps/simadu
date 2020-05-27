@@ -4,7 +4,7 @@
     <body>
         <div class="navbar navbar-expand-md navbar-dark">
             <div class="navbar-brand">
-                <a href="{{route('home')}}" class="d-inline-block">
+                <a href="{{route('graduate.home')}}" class="d-inline-block">
                     <img src="{{asset('assets/global/images/logo_app.png')}}" alt="">
                 </a>
             </div>
@@ -16,13 +16,13 @@
             <div class="collapse navbar-collapse" id="navbar-mobile">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item dropdown">
-                        <a href="{{route('home')}}" class="navbar-nav-link">
+                        <a href="{{route('graduate.home')}}" class="navbar-nav-link">
                             <i class="icon-display4"></i>
                             <span class="d-md-none ml-2">Portal</span>
                         </a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a href="{{route('admin.home')}}" class="navbar-nav-link">
+                        <a href="{{route('graduate.admin.home')}}" class="navbar-nav-link">
                             <i class="icon-enter2"></i>
                             <span class="d-md-none ml-2">Masuk</span>
                         </a>

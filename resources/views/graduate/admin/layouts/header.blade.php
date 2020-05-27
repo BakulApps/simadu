@@ -11,7 +11,7 @@
     <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
         <div class="d-flex">
             <div class="breadcrumb">
-                <a href="{{route('admin.home')}}" class="breadcrumb-item"><i class="icon-display mr-2"></i> Beranda</a>
+                <a href="{{route('graduate.admin.home')}}" class="breadcrumb-item"><i class="icon-display mr-2"></i> Beranda</a>
                 @yield('breadcrumb')
             </div>
             <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>

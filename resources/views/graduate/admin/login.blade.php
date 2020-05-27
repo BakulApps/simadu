@@ -4,7 +4,7 @@
     <body>
         <div class="navbar navbar-expand-md navbar-dark">
             <div class="navbar-brand">
-                <a href="{{route('admin.home')}}" class="d-inline-block">
+                <a href="{{route('graduate.admin.home')}}" class="d-inline-block">
                     <img src="{{asset('assets/global/images/logo_light.png')}}" alt="">
                 </a>
             </div>
@@ -16,7 +16,7 @@
             <div class="collapse navbar-collapse" id="navbar-mobile">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item dropdown">
-                        <a href="{{route('home')}}" class="navbar-nav-link">
+                        <a href="{{route('graduate.home')}}" class="navbar-nav-link">
                             <i class="icon-display4"></i>
                             <span class="d-md-none ml-2">Portal</span>
                         </a>
@@ -27,7 +27,7 @@
         <div class="page-content">
             <div class="content-wrapper">
                 <div class="content d-flex justify-content-center align-items-center">
-                    <form class="login-form" action="{{route('admin.login')}}" method="post">
+                    <form class="login-form" action="{{route('graduate.admin.login')}}" method="post">
                         {{csrf_field()}}
                         <div class="card mb-0">
                             <div class="card-body">

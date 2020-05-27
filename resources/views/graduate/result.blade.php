@@ -45,10 +45,11 @@
                     @if($student->notify_status == 1)
                         <h2 class="bg-success font-weight-bold mb-3">LULUS</h2>
                         <p>Untuk mencetak Surat Keterangan Lulus, silahkan klik tombol dibawah ini.</p>
-                        <form action="{{route('home')}}" method="post">
+                        <form action="{{route('graduate.print')}}" method="post">
                             {{csrf_field()}}
                             <input type="hidden" name="student_nisn" value="{{$student->student_nisn}}">
-                            <button type="submit" class="btn btn-sm btn-info" name="submit" value="print">CETAK SKL</button>
+                            <button type="submit" class="btn btn-sm btn-info" name="submit" value="skl">CETAK SKL</button>
+                            <button type="submit" class="btn btn-sm btn-info" name="submit" value="skl_un">CETAK SK UN</button>
                         </form>
                     @else
                         <h2 class="bg-danger font-weight-bold mb-3">TIDAK LULUS</h2>

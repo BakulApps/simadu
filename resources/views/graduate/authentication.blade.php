@@ -13,12 +13,8 @@
                     <span class="d-block text-muted mb-3">{{\App\Models\Graduate\Setting::SubNameSchool()}}</span>
                     <table class="table table-borderless table-xs font-weight-bold" style="margin-left:auto;margin-right:auto;">
                         <tr>
-                            <td class="text-left" style="width: 35%">UUID</td>
-                            <td class="text-left" style="width: 65%">: {{$notify->notify_id}}</td>
-                        </tr>
-                        <tr>
-                            <td class="text-left">Nomor Surat : </td>
-                            <td class="text-left">: {{$notify->notify_number == null ? '' : $notify->notify_number . \App\Models\Graduate\Setting::value('setting_notify_letter') }}</td>
+                            <td class="text-left" style="width: 40%">Nomor Surat : </td>
+                            <td class="text-left" style="width: 60%">: {{$notify->notify_number == null ? '' : $notify->notify_number . \App\Models\Graduate\Setting::value('setting_notify_letter') }}</td>
                         </tr>
                         <tr>
                             <td class="text-left">Nama Lengkap</td>
@@ -46,8 +42,12 @@
                         </tr>
 
                         <tr>
-                            <td class="text-left">Total Nilai</td>
-                            <td class="text-left">: {{$notify->notify_value_total}}</td>
+                            <td class="text-left">Total Nilai Pengetahuan</td>
+                            <td class="text-left">: {{$notify->notify_value_pg_total}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">Total Nilai Keterampilan</td>
+                            <td class="text-left">: {{$notify->notify_value_kt_total}}</td>
                         </tr>
                         <tr>
                             <td class="text-left">Jumlah Cetakan</td>

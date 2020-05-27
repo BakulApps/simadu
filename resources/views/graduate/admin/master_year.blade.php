@@ -57,32 +57,3 @@
         </div>
     </div>
 @endsection
-@section('modal')
-    <div id="modal-upload" class="modal fade" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Unggah Siswa</h5>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <form action="{{route('admin.student')}}" method="post" enctype="multipart/form-data">
-                    {{csrf_field()}}
-                    <input type="hidden" name="_type" value="submit">
-                    <input type="hidden" name="_data" value="upload">
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <input type="file" name="data_student" class="form-control-uniform-custom">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn bg-primary">Unggah</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-@endsection

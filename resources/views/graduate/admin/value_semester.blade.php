@@ -21,7 +21,7 @@
                     <div class="header-elements">
                         <span class="mr-1">Tahun Pelajaran :</span>
                         <select id="year_id" class="form-control select year_id">
-                            @foreach(\App\Models\Graduate\Master\Year::OrderBy('year_number')->get() as $year)
+                            @foreach(\App\Models\Master\Year::OrderBy('year_number')->get() as $year)
                                 <option value="{{$year->year_id}}">TP. {{$year->year_name}}</option>
                             @endforeach
                         </select>
@@ -37,8 +37,9 @@
                     <thead>
                     <tr class="text-center">
                         <td>NAMA SISWA</td>
-                        @foreach(\App\Models\Graduate\Master\Subject::OrderBy('subject_number')->get() as $subject)
-                            <td>{{$subject->subject_code}}</td>
+                        @foreach(\App\Models\Master\Subject::OrderBy('subject_number')->get() as $subject)
+                            <td>{{$subject->subject_code}}_KD3</td>
+                            <td>{{$subject->subject_code}}_KD4</td>
                         @endforeach
                     </tr>
                     </thead>
@@ -65,7 +66,7 @@
                             </div>
                         </div>
                     </div>
-                    <p>Silahkan unduh template Nilai Semester <a href="{{route('admin.value.semester')}}/?_type=download&_data=value_semester" class="badge badge-info">disini</a></p>
+                    <p>Silahkan unduh template Nilai Semester <a href="{{route('graduate.admin.value.semester')}}/?_type=download&_data=value_semester" class="badge badge-info">disini</a></p>
                 </div>
             </div>
         </div>

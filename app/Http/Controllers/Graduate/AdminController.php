@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Graduate;
 use App\Exports\Graduate\StudentExport;
 use App\Http\Controllers\Controller;
 use App\Imports\Graduate\StudentImport;
-use App\Models\Graduate\Master\Subject;
-use App\Models\Graduate\Master\Year;
+use App\Models\Master\Subject;
+use App\Models\Master\Year;
 use App\Models\Graduate\Notify;
 use App\Models\Graduate\Setting;
 use App\Models\Graduate\Student;
@@ -116,13 +116,14 @@ class AdminController extends Controller
         if ($request->isMethod('post')){
             if ($request->_type == 'data' && $request->_data == 'all'){
                 $no = 1;
-                foreach (Notify::join('entity__students', 'entity__students.student_id', '=', 'entity__notifies.student_id')
+                foreach (Notify::join('graduate_entity__students', 'graduate_entity__students.student_id', '=', 'graduate_entity__notifies.student_id')
                              ->OrderBy('student_class')->OrderBy('student_name')->get() as $notify){
                     $data[] = [
                         $no++,
                         $notify->student_name,
                         $notify->notify_status == 1 ? '<span class="badge badge-success">lulus</span>' : '<span class="badge badge-danger">tidak lulus</span>',
-                        $notify->notify_value_total,
+                        $notify->notify_value_pg_total,
+                        $notify->notify_value_kt_total,
                         $notify->notify_id,
                         $notify->notify_view,
                         $notify->notify_print,
@@ -137,7 +138,7 @@ class AdminController extends Controller
             }
             elseif ($request->_type == 'data' && $request->_data == 'notify'){
                 $notify = Notify::where('notify_id', $request->notify_id)
-                    ->join('entity__students', 'entity__students.student_id', '=', 'entity__notifies.student_id')->first();
+                    ->join('graduate_entity__students', 'graduate_entity__students.student_id', '=', 'graduate_entity__notifies.student_id')->first();
                 $msg = $notify;
             }
             elseif ($request->_type == 'update'){
@@ -151,22 +152,31 @@ class AdminController extends Controller
                 }
             }
             elseif ($request->_type == 'store'){
-                $path = storage_path() . 'app/public/sites/graduate/images/qr/*.png';
-                $files = glob($path);
+                $path = storage_path() . '/app/public/sites/graduate/images/qr/';
+                if (!file_exists($path)){
+                    mkdir($path, 0777);
+                }
+                $files = glob($path . '*.png');
                 foreach ($files as $file){
                     unlink($file);
                 }
                 Notify::query()->truncate();
                 foreach (Student::OrderBy('student_class')->OrderBy('student_name')->get()  as $student){
-                    $value = [];
+                    $value_pg = [];
+                    $value_kt = [];
                     foreach (Subject::OrderBy('subject_number')->get() as $subject){
-                        $value = array_merge($value,[
+                        $value_pg = array_merge($value_pg,[
                             ((ValueSemester::where('student_id', $student->student_id)
                                         ->where('subject_id', $subject->subject_id)
-                                        ->average('value_point') * Setting::value('setting_value_semester_point')) +
+                                        ->average('value_point_pg') * Setting::value('setting_value_semester_point')) +
                                 (ValueExam::where('student_id', $student->student_id)
                                         ->where('subject_id', $subject->subject_id)
                                         ->value('value_point') * Setting::value('setting_value_exam_point'))) / 100
+                        ]);
+                        $value_kt = array_merge($value_kt,[
+                            (ValueSemester::where('student_id', $student->student_id)
+                                        ->where('subject_id', $subject->subject_id)
+                                        ->average('value_point_kt'))
                         ]);
                     }
                     $uuid = Factory::create('id_ID')->uuid;
@@ -174,15 +184,17 @@ class AdminController extends Controller
                         'notify_id' => $uuid,
                         'notify_number' => Factory::create('id_ID')->numberBetween(100, 999),
                         'notify_status' => 1,
-                        'notify_value' => json_encode($value),
-                        'notify_value_total' => array_sum($value),
+                        'notify_value_pg' => json_encode($value_pg),
+                        'notify_value_pg_total' => array_sum($value_pg),
+                        'notify_value_kt' => json_encode($value_kt),
+                        'notify_value_kt_total' => array_sum($value_kt),
                         'notity_value_rank' => 0,
                         'notify_view' => 0,
                         'notify_print' => 0,
                         'student_id' => $student->student_id
                     ]);
                     QrCode::size(1024)->format('png')
-                        ->generate(route('home.authentication', ['id' => $uuid]), storage_path('app/public/sites/graduate/images/qr/'. $uuid . '.png'));
+                        ->generate(route('graduate.home.authentication', ['id' => $uuid]), storage_path('app/public/sites/graduate/images/qr/'. $uuid . '.png'));
                 }
                 $msg = ['title' => 'Sukses !', 'class' => 'success', 'text' => 'Data Kelulusan berhasil dibuat.'];
             }
@@ -265,7 +277,7 @@ class AdminController extends Controller
                 $logo_school->move($pathupload, 'logo_school.png');
                 $msg = ['logo' => 'Berkas logo berhasil di unggah, silahkan clear cache browser untuk melihat perubahan.'];
             }
-            return redirect()->route('admin.setting')->with('msg', $msg);
+            return redirect()->route('graduate.admin.setting')->with('msg', $msg);
         }
         else {
             $data = ['setting' => Setting::first()];

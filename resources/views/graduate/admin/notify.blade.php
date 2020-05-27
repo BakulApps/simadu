@@ -26,7 +26,8 @@
                         <th>No</th>
                         <th>Nama Siswa</th>
                         <th>Status</th>
-                        <th>Total Nilai</th>
+                        <th>Total Nilai KD3</th>
+                        <th>Total Nilai KD4</th>
                         <th>Nomor Seri</th>
                         <th>Dilihat</th>
                         <th>Dicetak</th>
@@ -116,7 +117,7 @@
                                 <td class="font-weight-bold text-center">NILAI UJIAN</td>
                             </tr>
                             @php($no = 1)
-                            @foreach(\App\Models\Graduate\Master\Subject::OrderBy('subject_number')->get() as $subject)
+                            @foreach(\App\Models\Master\Subject::OrderBy('subject_number')->get() as $subject)
                                 <tr>
                                     <td class="text-center">{{$no++}}</td>
                                     <td>{{$subject->subject_name}}</td>

@@ -43,7 +43,7 @@
                                 {{$msg['school']}}
                             </div>
                         @endif
-                        <form action="{{route('admin.setting')}}" method="post">
+                        <form action="{{route('graduate.admin.setting')}}" method="post">
                             {{csrf_field()}}
                             <div class="form-group row">
                                 <label class="col-md-3 col-form-label">Nama Yayasan :</label>
@@ -55,7 +55,7 @@
                                 <label class="col-md-3 col-form-label">Jenjang Sekolah :</label>
                                 <div class="col-md-9">
                                     <select name="setting_school_ladder" class="form-control select">
-                                        @foreach(\App\Models\Graduate\Ladder::OrderBy('ladder_id')->get() as $ladder)
+                                        @foreach(\App\Models\Master\Ladder::OrderBy('ladder_id')->get() as $ladder)
                                             <option value="{{$ladder->ladder_id}}" {{$ladder->ladder_id == $setting->setting_school_ladder ? 'selected' : null}}>{{$ladder->ladder_name}}</option>
                                         @endforeach
                                     </select>
@@ -141,7 +141,7 @@
                                 {{$msg['notify']}}
                             </div>
                         @endif
-                        <form action="{{route('admin.setting')}}" method="post">
+                        <form action="{{route('graduate.admin.setting')}}" method="post">
                             {{csrf_field()}}
                             <div class="form-group row">
                                 <label class="col-md-4 col-form-label">Nomor Surat :</label>
@@ -186,7 +186,7 @@
                             {{$msg['user']}}
                         </div>
                         @endif
-                        <form action="{{route('admin.setting')}}" method="post">
+                        <form action="{{route('graduate.admin.setting')}}" method="post">
                             {{csrf_field()}}
                             <div class="form-group row">
                                 <label class="col-md-3 col-form-label">Nama Pengguna :</label>
@@ -226,7 +226,7 @@
                                 {{$msg['database']}}
                             </div>
                         @endif
-                        <form action="{{route('admin.setting')}}" method="post">
+                        <form action="{{route('graduate.admin.setting')}}" method="post">
                             {{csrf_field()}}
                             <div class="form-group row">
                                 <label class="col-md-3 col-form-label">Basis Data :</label>
@@ -256,7 +256,7 @@
         </div>
         <div class="col-md-4">
             <div class="card">
-                <form action="{{route('admin.setting')}}" method="post" enctype="multipart/form-data">
+                <form action="{{route('graduate.admin.setting')}}" method="post" enctype="multipart/form-data">
                     {{csrf_field()}}
                     <div class="card-header header-elements-inline">
                         <h5 class="card-title">Logo Sekolah</h5>
